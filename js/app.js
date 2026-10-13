@@ -7,7 +7,7 @@
   const TILE_URL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
   const TILE_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-  const state = { sections: [], routes: new Map(), note: "", filter: "all", map: null, mini: null, me: null, watchId: null };
+  const state = { sections: [], routes: new Map(), note: "", filter: "all", map: null, mini: null, me: null, watchId: null, installPrompt: null };
 
   // ---------- 데이터 ----------
   async function load() {
@@ -24,10 +24,39 @@
 
   // ---------- 공통 ----------
   const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
-  function toast(msg) {
+  function toast(msg, ms = 3000) {
     const el = document.getElementById("toast");
     el.textContent = msg; el.hidden = false;
-    clearTimeout(toast.t); toast.t = setTimeout(() => (el.hidden = true), 3000);
+    clearTimeout(toast.t); toast.t = setTimeout(() => (el.hidden = true), ms);
+  }
+
+  // ---------- 홈 화면에 설치 (PWA) ----------
+  const isStandalone = () => window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+  function updateInstallButton() {
+    const btn = document.getElementById("install");
+    if (btn) btn.hidden = isStandalone();
+  }
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    state.installPrompt = e;
+    updateInstallButton();
+  });
+  window.addEventListener("appinstalled", () => {
+    state.installPrompt = null;
+    updateInstallButton();
+    toast("홈 화면에 설치했어요. 이제 아이콘으로 바로 열 수 있어요.", 4000);
+  });
+  async function install() {
+    if (state.installPrompt) {
+      state.installPrompt.prompt();
+      await state.installPrompt.userChoice;
+      state.installPrompt = null;
+      return;
+    }
+    const ios = /iPhone|iPad|iPod/.test(navigator.userAgent);
+    toast(ios
+      ? "Safari 아래쪽 공유 버튼 → '홈 화면에 추가'를 눌러 주세요."
+      : "크롬 오른쪽 위 메뉴(⋮) → '앱 설치' 또는 '홈 화면에 추가'를 눌러 주세요.", 7000);
   }
   function setTab(name) {
     document.querySelectorAll(".tabbar a").forEach((a) => a.classList.toggle("on", a.dataset.tab === name));
@@ -49,9 +78,14 @@
       .map(([v, t]) => `<button class="chip${state.filter === v ? " on" : ""}" data-filter="${v}">${t}</button>`).join("");
 
     $view.innerHTML = `
-      <header class="top">
-        <h1>북한산둘레길</h1>
-        <p>${state.sections.length}개 구간 · 약 ${Math.round(totalKm())}km</p>
+      <header class="top with-action">
+        <div>
+          <h1>북한산둘레길</h1>
+          <p>${state.sections.length}개 구간 · 약 ${Math.round(totalKm())}km</p>
+        </div>
+        <button id="install" class="install" type="button" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 19h14"/></svg>앱 설치
+        </button>
       </header>
       <div class="chips" role="group" aria-label="난이도">${chips}</div>
       ${areas.map((area) => {
@@ -74,6 +108,8 @@
     $view.querySelectorAll("[data-filter]").forEach((b) => b.addEventListener("click", () => {
       state.filter = b.dataset.filter; renderList();
     }));
+    document.getElementById("install").addEventListener("click", install);
+    updateInstallButton();
   }
 
   // ---------- 구간 상세 ----------

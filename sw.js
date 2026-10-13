@@ -1,5 +1,5 @@
 // 서비스 워커: 앱 파일과 구간 데이터는 미리 저장, 지도 타일은 본 것만 저장 (PWA 오프라인 열람)
-const VERSION = "v2";
+const VERSION = "v3";
 const APP_CACHE = `app-${VERSION}`;
 const TILE_CACHE = "tiles-v1";
 const TILE_LIMIT = 600;

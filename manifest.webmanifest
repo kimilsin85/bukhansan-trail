@@ -9,8 +9,51 @@
   "background_color": "#FFFFFF",
   "theme_color": "#2E5B3E",
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "id": "./",
+  "orientation": "portrait",
+  "categories": [
+    "travel",
+    "navigation",
+    "sports"
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/list.jpg",
+      "sizes": "750x1624",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "21개 구간 목록"
+    },
+    {
+      "src": "screenshots/detail.jpg",
+      "sizes": "750x1624",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "구간 상세와 경로"
+    },
+    {
+      "src": "screenshots/map_all.jpg",
+      "sizes": "750x1624",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "둘레길 전체 지도"
+    }
   ]
 }

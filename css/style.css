@@ -29,6 +29,9 @@ button { font: inherit; color: inherit; }
 .top { padding: 28px 0 12px; }
 .top h1 { margin: 0; font-size: 28px; line-height: 1.25; }
 .top p { margin: 4px 0 0; color: var(--sub); font-size: 15px; }
+.top.with-action { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.install { flex: none; display: inline-flex; align-items: center; gap: 4px; min-height: 40px; padding: 8px 14px; border-radius: 999px; border: 0; background: var(--pine); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 4px; }
+.install svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 .top.sub { display: flex; align-items: center; gap: 8px; padding-top: 16px; }
 .top.sub p { margin: 0; }
 .back { font-size: 36px; line-height: 1; width: 44px; height: 44px; display: grid; place-items: center; margin-left: -10px; color: var(--pine); }
