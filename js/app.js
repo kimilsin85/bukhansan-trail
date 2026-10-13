@@ -1,5 +1,5 @@
 // 북한산둘레길 웹앱
-// 화면: #/ (구간 목록) · #/s/3 (구간 상세) · #/map · #/map/3 (지도)
+// 화면: #/ (구간 목록) · #/s/3 (구간 상세) · #/map · #/map/3 (지도) · #/note/depart|peaks|food (산행 노트)
 (function () {
   const $view = document.getElementById("view");
   const LEVEL = { 하: "쉬움", 중: "보통", 상: "어려움" };
@@ -104,6 +104,7 @@
       <div class="actions">
         <a class="btn primary" href="#/map/${s.no}">지도에서 크게 보기</a>
         ${f ? `<a class="btn" href="${kakaoTo(s.from, f.properties.start)}" target="_blank" rel="noopener">출발점까지 길찾기 (카카오맵)</a>` : ""}
+        <a class="btn" href="#/note/depart?s=${s.no}">언제 출발할지 계산하기</a>
       </div>
       <nav class="pager">
         ${prev ? `<a href="#/s/${prev.no}">‹ ${prev.no}. ${esc(prev.name)}</a>` : "<span></span>"}
@@ -250,6 +251,10 @@
     const h = location.hash || "#/";
     let m;
     if ((m = h.match(/^#\/s\/(\d+)/))) renderDetail(Number(m[1]));
+    else if ((m = h.match(/^#\/note(?:\/(\w+))?(?:\?s=(\d+))?/))) {
+      setTab("note");
+      Note.render($view, m[1], { sections: state.sections, sectionNo: m[2] ? Number(m[2]) : null });
+    }
     else if ((m = h.match(/^#\/map(?:\/(\d+))?/))) renderMap(m[1] ? Number(m[1]) : null);
     else renderList();
     if (!h.startsWith("#/map")) window.scrollTo(0, 0);

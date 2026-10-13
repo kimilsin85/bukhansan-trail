@@ -12,6 +12,11 @@
 | 내 위치 | 현재 위치 표시, 선택 구간까지 거리 ("코스 위에 있어요") | Geolocation API |
 | 가는 길 | 출발점까지 카카오맵 길찾기 연결 | 카카오맵 URL 링크 |
 | 오프라인 열람 | 앱·구간 정보는 미리 저장, 지도 타일은 본 만큼 저장 | PWA (서비스 워커) |
+| 산행 노트 · 출발 시각 | 날짜별 일몰에서 거꾸로 계산한 출발 시각. 구간 상세에서 바로 연결 | 일몰 계산식 |
+| 산행 노트 · 봉우리 기록 | 오른 봉우리와 날짜·메모 기록 | localStorage |
+| 산행 노트 · 하산 맛집 | 하산 지점별 맛집 기록·추천, 내보내기/가져오기로 나눔 | localStorage |
+
+산행 노트는 claude.ai에서 만든 "산행 노트"를 합친 것입니다. 기록은 각자 기기의 브라우저에만 저장됩니다.
 
 ## 실행
 
@@ -37,7 +42,7 @@ node tools/serve.js
 ## 폴더
 
 ```
-index.html, css/, js/          화면
+index.html, css/, js/          화면 (js/note*.js: 산행 노트)
 data/                          구간 정보, 경로 GeoJSON
 sw.js, manifest.webmanifest    PWA
 vendor/leaflet/                Leaflet 1.9.4

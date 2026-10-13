@@ -1,11 +1,11 @@
 // 서비스 워커: 앱 파일과 구간 데이터는 미리 저장, 지도 타일은 본 것만 저장 (PWA 오프라인 열람)
-const VERSION = "v1";
+const VERSION = "v2";
 const APP_CACHE = `app-${VERSION}`;
 const TILE_CACHE = "tiles-v1";
 const TILE_LIMIT = 600;
 
 const APP_FILES = [
-  "./", "index.html", "css/style.css", "js/app.js", "js/geo.js",
+  "./", "index.html", "css/style.css", "js/app.js", "js/geo.js", "js/note-logic.js", "js/note.js",
   "data/sections.json", "data/routes.geojson", "manifest.webmanifest",
   "vendor/leaflet/leaflet.js", "vendor/leaflet/leaflet.css",
   "icons/icon.svg", "icons/icon-192.png", "icons/icon-512.png",
