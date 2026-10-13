@@ -1,7 +1,7 @@
 {
   "name": "북한산둘레길",
   "short_name": "둘레길",
-  "description": "북한산둘레길 21개 구간 정보와 지도",
+  "description": "북한산둘레길 21개 구간 정보, 지도, 내 위치, 산행 노트",
   "lang": "ko",
   "start_url": "./",
   "scope": "./",
@@ -54,6 +54,13 @@
       "type": "image/jpeg",
       "form_factor": "narrow",
       "label": "둘레길 전체 지도"
+    },
+    {
+      "src": "screenshots/note.jpg",
+      "sizes": "750x1624",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "산행 노트: 출발 시각 계산"
     }
   ]
 }
